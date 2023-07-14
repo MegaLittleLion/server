@@ -9,12 +9,12 @@ megaLittleLion server 레포지토리입니다.
 
 ## POST - [Members] 회원가입
 
-`http://127.0.0.1:8000/members/signup/`
+`https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/members/signup/`
 
 **Request**
 
 ```json
-curl --location 'http://127.0.0.1:8000/members/signup/' \
+curl --location 'https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/members/signup/' \
 --header 'Content-Type: application/json' \
 --header 'charset: utf-8' \
 --data-raw '{
@@ -47,12 +47,12 @@ HTTP_400_BAD_REQUEST
 
 ## POST - [Members] 로그인
 
-`http://127.0.0.1:8000/members/login/`
+`https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/members/login/`
 
 **Request**
 
 ```json
-curl --location 'http://127.0.0.1:8000/account/login/' \
+curl --location 'https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/members/login/' \
 --data '{
     "user_id" : "adddddam",
     "password" : "1234"
@@ -91,16 +91,16 @@ HTTP_400_BAD_REQUEST
 
 ## GET - [MainPage] 메인페이지 API
 
-`http://127.0.0.1:8000/movie/`
+`https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/movie/`
 
 ## GET [DetailPage] 영화 상세페이지 호출
 
-`http://127.0.0.1:8000/movie/<str:moviename>/`
+`https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/movie/<int:pk>/`
 
 **Request**
 
 ```json
-curl --location 'http://127.0.0.1:8000/movie/<str:moviename>/ \
+curl --location 'https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/movie/<int:pk>/ \
 
 ```
 
@@ -151,7 +151,7 @@ curl --location 'http://127.0.0.1:8000/movie/<str:moviename>/ \
 
 ## GET [DetailPage] 영화 상세 코멘트 작성
 
-`http://127.0.0.1:8000/movie/<str:moviename>/comments/`
+`https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/movie/<int:pk>/comments/`
 
 Request
 
