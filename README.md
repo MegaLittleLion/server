@@ -129,12 +129,12 @@ HTTP_200_OK
 
 ## GET [DetailPage] 영화 상세페이지 호출
 
-`http://127.0.0.1:8000/movie/<str:moviename>/`
+`http://127.0.0.1:8000/movie/<int:pk>/`
 
 **Request**
 
 ```json
-curl --location 'http://127.0.0.1:8000/movie/<str:moviename>/ \
+curl --location 'http://127.0.0.1:8000/movie/<int:pk>/ \
 
 ```
 
@@ -185,7 +185,7 @@ curl --location 'http://127.0.0.1:8000/movie/<str:moviename>/ \
 
 ## GET [DetailPage] 영화 상세 코멘트 작성
 
-`http://127.0.0.1:8000/movie/<str:moviename>/comments/`
+`http://127.0.0.1:8000/movie/<int:pk>/comments/`
 
 Request
 
