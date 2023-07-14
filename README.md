@@ -21,6 +21,7 @@ curl --location 'http://127.0.0.1:8000/members/signup/' \
     "user_id" : "adddddam",
     "nickname" : "Adam",
     "password" : "1234",
+	"pwcheck" : "1234"
 ```
 
 **Response**
@@ -84,6 +85,27 @@ HTTP_400_BAD_REQUEST
     "message": "비밀번호가 틀렸습니다."
 }
 ```
+
+## POST - 닉네임 중복 체크
+
+`http://127.0.0.1:8000/members/uniquecheck/nickname/`
+
+```json
+HTTP_400_BAD_REQUEST
+
+{
+    "message": "닉네임 중복"
+}
+```
+
+```json
+HTTP_200_OK
+
+{
+    "message": "중복 아님"
+}
+```
+
 
 ---
 
