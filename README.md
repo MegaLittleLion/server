@@ -88,7 +88,7 @@ HTTP_400_BAD_REQUEST
 
 ## POST - 닉네임 중복 체크
 
-`http://127.0.0.1:8000/members/uniquecheck/nickname/`
+`http://127.0.0.1:8000/members/uniquecheck/nickname/`
 
 ```json
 HTTP_400_BAD_REQUEST
