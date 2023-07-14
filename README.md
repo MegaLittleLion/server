@@ -90,6 +90,18 @@ HTTP_400_BAD_REQUEST
 
 `http://127.0.0.1:8000/members/uniquecheck/nickname/`
 
+
+**Request**
+
+```json
+curl --location 'http://127.0.0.1:8000/members/signup/' \
+--header 'Content-Type: application/json' \
+--header 'charset: utf-8' \
+--data-raw '{
+    "nickname" : "Adam"
+```
+
+**Response**
 ```json
 HTTP_400_BAD_REQUEST
 
