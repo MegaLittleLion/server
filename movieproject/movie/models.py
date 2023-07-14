@@ -1,4 +1,5 @@
 from django.db import models
+# from members.models import CustomUser
 
 # Create your models here.
 class Movie(models.Model):
@@ -13,11 +14,15 @@ class Movie(models.Model):
     release_date = models.TextField(default='')
     rate = models.CharField(max_length=20)
     summary = models.TextField(default='')
-    
+
     def __str__(self):
         return self.title_kor
 
 class Staff(models.Model):
+    movie_title = models.ForeignKey(Movie, null=True, on_delete=models.CASCADE, related_name='staff')
     name = models.CharField(max_length=30)
     role = models.CharField(max_length=30)
     image_url = models.URLField(max_length=1024)
+
+    def __str__(self):
+        return self.name
