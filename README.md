@@ -41,7 +41,7 @@ HTTP 200 OK
 HTTP_400_BAD_REQUEST
 
 {
-    "status": "회원가입에 실패하였습니다."
+    "message": "회원가입에 실패하였습니다."
 }
 ```
 
