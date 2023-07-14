@@ -5,8 +5,6 @@ megaLittleLion server 레포지토리입니다.
 
 ---
 
----
-
 # Members앱 API
 
 ## POST - [Members] 회원가입
@@ -15,7 +13,7 @@ megaLittleLion server 레포지토리입니다.
 
 **Request**
 
-```java
+```json
 curl --location 'http://127.0.0.1:8000/members/signup/' \
 --header 'Content-Type: application/json' \
 --header 'charset: utf-8' \
@@ -27,11 +25,11 @@ curl --location 'http://127.0.0.1:8000/members/signup/' \
 
 **Response**
 
-```java
+```json
 HTTP 200 OK
 
 {
-    "status": 200
+    "message": "회원가입 되었습니다."
 }
 ```
 
@@ -39,11 +37,11 @@ HTTP 200 OK
 
 **Response**
 
-```java
+```json
 HTTP_400_BAD_REQUEST
 
 {
-    "status": 400
+    "status": "회원가입에 실패하였습니다."
 }
 ```
 
@@ -53,7 +51,7 @@ HTTP_400_BAD_REQUEST
 
 **Request**
 
-```java
+```json
 curl --location 'http://127.0.0.1:8000/account/login/' \
 --data '{
     "user_id" : "adddddam",
@@ -63,7 +61,7 @@ curl --location 'http://127.0.0.1:8000/account/login/' \
 
 **Response**
 
-```java
+```json
 {
     "message": "로그인 되었습니다."
 }
@@ -71,11 +69,19 @@ curl --location 'http://127.0.0.1:8000/account/login/' \
 
 ## POST - [Members] 로그인 실패
 
-```java
+```json
 HTTP_400_BAD_REQUEST
 
 {
-    "status": 400
+    "message": "아이디가 일치하는 계정이 없습니다."
+}
+```
+
+```json
+HTTP_400_BAD_REQUEST
+
+{
+    "message": "비밀번호가 틀렸습니다."
 }
 ```
 
@@ -93,14 +99,14 @@ HTTP_400_BAD_REQUEST
 
 **Request**
 
-```java
+```json
 curl --location 'http://127.0.0.1:8000/movie/<str:moviename>/ \
 
 ```
 
 **Response**
 
-```java
+```json
 {
 "title_kor": "그레이 맨",
 "title_eng": "The Gray Man, 2022",
@@ -149,7 +155,7 @@ curl --location 'http://127.0.0.1:8000/movie/<str:moviename>/ \
 
 Request
 
-```java
+```json
 {
 		"comment": "액션씬이 참 멋있었다!"
 }
@@ -157,7 +163,7 @@ Request
 
 Response
 
-```java
+```json
 {
 "title_kor": "그레이 맨",
 "title_eng": "The Gray Man, 2022",
