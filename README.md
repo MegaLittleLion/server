@@ -18,7 +18,7 @@ curl --location 'https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/member
 --header 'Content-Type: application/json' \
 --header 'charset: utf-8' \
 --data-raw '{
-    "user_id" : "adddddam",
+    "username" : "adddddam",
     "nickname" : "Adam",
     "password" : "1234",
 ```
@@ -54,7 +54,7 @@ HTTP_400_BAD_REQUEST
 ```json
 curl --location 'https://port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app/members/login/' \
 --data '{
-    "user_id" : "adddddam",
+    "username" : "adddddam",
     "password" : "1234"
 }'
 ```
