@@ -27,7 +27,25 @@ curl --location 'http://127.0.0.1:8000/members/signup/' \
 
 **Response**
 
-None.
+```java
+HTTP 200 OK
+
+{
+    "status": 200
+}
+```
+
+## POST - [Members] 회원가입 실패
+
+**Response**
+
+```java
+HTTP_400_BAD_REQUEST
+
+{
+    "status": 400
+}
+```
 
 ## POST - [Members] 로그인
 
@@ -48,6 +66,16 @@ curl --location 'http://127.0.0.1:8000/account/login/' \
 ```java
 {
     "message": "로그인 되었습니다."
+}
+```
+
+## POST - [Members] 로그인 실패
+
+```java
+HTTP_400_BAD_REQUEST
+
+{
+    "status": 400
 }
 ```
 
