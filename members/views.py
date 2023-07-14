@@ -22,9 +22,9 @@ def login(request):
         try:
             user = CustomUser.objects.get(username=username)
             if not user.check_password(password):
-                return Response({"response": "incorrect Password"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"response": "incorrect Password"}, status=status.HTTP_204_NO_CONTENT)
         except:
-            return Response({"response": "No User exist"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"response": "No User exist"}, status=status.HTTP_204_NO_CONTENT)
 
         user = auth.authenticate(
             request=request,
@@ -34,7 +34,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             return Response(status=status.HTTP_200_OK)
-    return Response({"response": "not valid login"}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"response": "not valid login"}, status=status.HTTP_204_NO_CONTENT)
 
 
 class UsernameUniqueCheck(CreateAPIView):
@@ -47,7 +47,7 @@ class UsernameUniqueCheck(CreateAPIView):
         else:
             detail = dict()
             detail['detail'] = serializer.errors['username']
-            return Response(data=detail, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=detail, status=status.HTTP_204_NO_CONTENT)
 
 
 class NicknameUniqueCheck(CreateAPIView):
@@ -60,7 +60,7 @@ class NicknameUniqueCheck(CreateAPIView):
         else:
             detail = dict()
             detail['detail'] = serializer.errors['nickname']
-            return Response(data=detail, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=detail, status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
