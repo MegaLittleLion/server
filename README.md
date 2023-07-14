@@ -18,7 +18,7 @@ curl --location 'http://127.0.0.1:8000/members/signup/' \
 --header 'Content-Type: application/json' \
 --header 'charset: utf-8' \
 --data-raw '{
-    "user_id" : "adddddam",
+    "username" : "adddddam",
     "nickname" : "Adam",
     "password" : "1234",
 	"pwcheck" : "1234"
@@ -55,7 +55,7 @@ HTTP_400_BAD_REQUEST
 ```json
 curl --location 'http://127.0.0.1:8000/account/login/' \
 --data '{
-    "user_id" : "adddddam",
+    "username" : "adddddam",
     "password" : "1234"
 }'
 ```
