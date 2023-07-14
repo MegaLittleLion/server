@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-gms4c=*0s$2j^kcxxupx!#$-=j)qz--oy%+nk4pa#$7t^jmloh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'port-0-test-mv-kvmh2mlk29efxe.sel4.cloudtype.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app']
 
 
 # Application definition
