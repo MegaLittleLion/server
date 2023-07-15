@@ -7,9 +7,11 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
+from rest_framework.views import APIView
 
 from .models import CustomUser
-from .serializers import NicknameUniqueCheckSerializer
+from .serializers import NicknameUniqueCheckSerializer, CustomRegisterSerializer, CustomLoginSerializer, \
+    CustomValidationError
 
 
 # @api_view(['POST'])
@@ -48,6 +50,20 @@ from .serializers import NicknameUniqueCheckSerializer
 #             detail['detail'] = serializer.errors['username']
 #             return Response(data=detail, status=status.HTTP_204_NO_CONTENT)
 #
+
+class CustomLoginView(APIView):
+    def post(self, request):
+        serializer = CustomLoginSerializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except CustomValidationError as e:
+            error_detail = dict(e.detail)
+            return Response(error_detail, status=status.HTTP_204_NO_CONTENT)
+
+        # 로그인 성공 시 필요한 로직 수행
+        # ...
+        return Response({'message': 'Login successful'}, status=200)
+
 
 class NicknameUniqueCheck(CreateAPIView):
     permission_classes = [AllowAny]

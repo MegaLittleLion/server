@@ -1,9 +1,18 @@
+from django.contrib.auth import authenticate
+from django.db import IntegrityError
+from rest_framework.exceptions import APIException
+
 from .models import CustomUser
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from allauth.account.adapter import get_adapter
 from dj_rest_auth.registration.serializers import RegisterSerializer
 
+
+class CustomValidationError(APIException):
+    status_code = 200
+    default_detail = 'Validation error'
+    default_code = 'invalid'
 
 class CustomUserDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,9 +38,48 @@ class CustomRegisterSerializer(RegisterSerializer):
         self.cleaned_data = self.get_cleaned_data()
         user.username = self.cleaned_data.get('username')
         user.nickname = self.cleaned_data.get('nickname')
+
+        try:
+            self.cleaned_data['password1'] == self.cleaned_data['password2']
+        except serializers.ValidationError:
+            msg = 'The two password fields did not match.'
+            raise CustomValidationError({'password1': msg})
+
+        user.set_password(self.cleaned_data['password1'])
+
+        try:
+            user.save()
+        except IntegrityError:
+            msg = 'A user with that username already exists.'
+            raise CustomValidationError({'username': msg})
+
         user.save()
         adapter.save_user(request, user, self)
         return user
+
+
+class CustomLoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, attrs):
+        username = attrs.get('username')
+        password = attrs.get('password')
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if user:
+                if not user.is_active:
+                    msg = 'User account is disabled.'
+                    raise CustomValidationError(msg)
+                attrs['user'] = user
+                return attrs
+            else:
+                msg = 'Unable to log in with provided credentials.'
+                raise CustomValidationError(msg)
+        else:
+            msg = 'Must include "username" and "password".'
+            raise CustomValidationError(msg)
 
 # class LoginSerializer(serializers.Serializer):
 #     username = serializers.CharField(max_length=150)
