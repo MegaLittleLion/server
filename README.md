@@ -20,8 +20,8 @@ curl --location 'http://127.0.0.1:8000/members/signup/' \
 --data-raw '{
     "username" : "adddddam",
     "nickname" : "Adam",
-    "password" : "1234",
-	"pwcheck" : "1234"
+    "password1" : "1234",
+    "password2" : "1234"
 ```
 
 **Response**
