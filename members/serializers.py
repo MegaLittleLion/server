@@ -53,7 +53,7 @@ class CustomRegisterSerializer(RegisterSerializer):
             user = adapter.new_user(request)
             self.cleaned_data = self.get_cleaned_data()
             user.nickname = self.cleaned_data.get('nickname')
-            user.username = self.cleaned_data.get('name')
+            user.username = self.cleaned_data.get('username')
             # user.subscription = self.cleaned_data.get('subscription')
             user.save()
             adapter.save_user(request, user, self)
