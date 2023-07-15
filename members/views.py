@@ -1,3 +1,4 @@
+from dj_rest_auth.registration.views import RegisterView, LoginView
 from django.shortcuts import render
 
 from django.contrib import auth
@@ -51,7 +52,7 @@ from .serializers import NicknameUniqueCheckSerializer, CustomRegisterSerializer
 #             return Response(data=detail, status=status.HTTP_204_NO_CONTENT)
 #
 
-class CustomLoginView(APIView):
+class CustomLoginView(LoginView):
     def post(self, request):
         serializer = CustomLoginSerializer(data=request.data)
         try:
@@ -63,6 +64,23 @@ class CustomLoginView(APIView):
         # 로그인 성공 시 필요한 로직 수행
         # ...
         return Response({'message': 'Login successful'}, status=200)
+
+
+from rest_framework.views import APIView
+
+
+class CustomRegisterView(RegisterView):
+    def post(self, request):
+        serializer = CustomRegisterSerializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except CustomValidationError as e:
+            error_detail = dict(e.detail)
+            return Response(error_detail, status=status.HTTP_204_NO_CONTENT)
+
+        # 회원가입 성공 시 필요한 로직 수행
+        # ...
+        return Response({'message': 'Registration successful'}, status=201)
 
 
 class NicknameUniqueCheck(CreateAPIView):

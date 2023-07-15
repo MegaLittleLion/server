@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import APIException, ValidationError
 
 from .models import CustomUser
 from rest_framework import serializers
@@ -10,7 +10,7 @@ from dj_rest_auth.registration.serializers import RegisterSerializer
 
 
 class CustomValidationError(APIException):
-    status_code = 200
+
     default_detail = 'Validation error'
     default_code = 'invalid'
 
@@ -41,17 +41,17 @@ class CustomRegisterSerializer(RegisterSerializer):
 
         try:
             self.cleaned_data['password1'] == self.cleaned_data['password2']
-        except serializers.ValidationError:
-            msg = 'The two password fields did not match.'
-            raise CustomValidationError({'password1': msg})
+        except:
+            msg = 'The two password fields not match.'
+            raise CustomValidationError({'detail': msg})
 
         user.set_password(self.cleaned_data['password1'])
 
         try:
             user.save()
-        except IntegrityError:
+        except:
             msg = 'A user with that username already exists.'
-            raise CustomValidationError({'username': msg})
+            raise CustomValidationError({'detail': msg})
 
         user.save()
         adapter.save_user(request, user, self)
