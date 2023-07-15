@@ -18,5 +18,11 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+<<<<<<< Updated upstream
     path('admin/', admin.site.urls),
+=======
+    # path('admin/', admin.site.urls),
+    path('movie/', include('movie.urls')),
+    path('members/', include('members.urls')),
+>>>>>>> Stashed changes
 ]
