@@ -27,6 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'port-0-test-mv-kvmh2mlk2besp7.sel4.cloudtype.app']
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        # 'rest_framework.authentication.SessionAuthentication',
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+    ),
+    'DEFAULT_PERMISSION_CLASSES':[
+        'rest_framework.permissions.IsAuthenticated'
+    ]
+}
 
 # Application definition
 
@@ -40,6 +51,14 @@ INSTALLED_APPS = [
     'movie',
     'members',
     'rest_framework',
+    'rest_framework.authtoken',
+    #dj-rest-auth 관련
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+    'allauth',
+    'allauth.account',
+    # simple-jwt 관련 관련
+    'rest_framework_simplejwt',
 
 ]
 
@@ -78,10 +97,21 @@ WSGI_APPLICATION = 'movieproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'movie_test',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'svc.sel4.cloudtype.app',
+        'PORT': '30342'
     }
 }
 
@@ -133,3 +163,64 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:8000"
 ]
+
+import pymysql
+
+pymysql.install_as_MySQLdb()
+
+from datetime import timedelta
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = False
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+}
+
+REST_AUTH = {
+    'LOGIN_SERIALIZER': 'dj_rest_auth.serializers.LoginSerializer',
+    'TOKEN_SERIALIZER': 'dj_rest_auth.serializers.TokenSerializer',
+    'JWT_SERIALIZER': 'dj_rest_auth.serializers.JWTSerializer',
+    'JWT_SERIALIZER_WITH_EXPIRATION': 'dj_rest_auth.serializers.JWTSerializerWithExpiration',
+    'JWT_TOKEN_CLAIMS_SERIALIZER': 'rest_framework_simplejwt.serializers.TokenObtainPairSerializer',
+    # 'USER_DETAILS_SERIALIZER': 'dj_rest_auth.serializers.UserDetailsSerializer',
+    'USER_DETAILS_SERIALIZER': 'members.serializers.CustomUserDetailSerializer',
+    'PASSWORD_RESET_SERIALIZER': 'dj_rest_auth.serializers.PasswordResetSerializer',
+    'PASSWORD_RESET_CONFIRM_SERIALIZER': 'dj_rest_auth.serializers.PasswordResetConfirmSerializer',
+    'PASSWORD_CHANGE_SERIALIZER': 'dj_rest_auth.serializers.PasswordChangeSerializer',
+
+    # 'REGISTER_SERIALIZER': 'dj_rest_auth.registration.serializers.RegisterSerializer',
+    'REGISTER_SERIALIZER': 'members.serializers.CustomRegisterSerializer',
+
+    'REGISTER_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+
+    'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
+    'TOKEN_CREATOR': 'dj_rest_auth.utils.default_create_token',
+
+    'PASSWORD_RESET_USE_SITES_DOMAIN': False,
+    'OLD_PASSWORD_FIELD_ENABLED': False,
+    'LOGOUT_ON_PASSWORD_CHANGE': False,
+    'SESSION_LOGIN': True,
+    'USE_JWT': True, #이부분
+
+    'JWT_AUTH_COOKIE': None,
+    'JWT_AUTH_REFRESH_COOKIE': None,
+    'JWT_AUTH_REFRESH_COOKIE_PATH': '/',
+    'JWT_AUTH_SECURE': False,
+    'JWT_AUTH_HTTPONLY': False, #이부분
+    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_RETURN_EXPIRATION': False,
+    'JWT_AUTH_COOKIE_USE_CSRF': False,
+    'JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED': False,
+}
