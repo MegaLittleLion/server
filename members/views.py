@@ -56,11 +56,11 @@ class NicknameUniqueCheck(CreateAPIView):
     def post(self, request, format=None):
         serializer = self.get_serializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            return Response(data={'detail':['available nickname']}, status=status.HTTP_200_OK)
+            return Response({'detail':'available nickname'}, status=status.HTTP_200_OK)
         else:
-            detail = dict()
-            detail['detail'] = serializer.errors['nickname']
-            return Response(data=detail, status=status.HTTP_204_NO_CONTENT)
+            # detail = dict()
+            # detail['detail'] = serializer.errors['nickname']
+            return Response({'detail':'nickname is not unique'}, status=status.HTTP_204_NO_CONTENT)
 
 #
 # @api_view(['POST'])
